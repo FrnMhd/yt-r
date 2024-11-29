@@ -1,0 +1,24 @@
+name: FFmpeg Stream to YouTube
+
+on:
+  workflow_dispatch:  # Trigger manually from GitHub Actions UI
+
+jobs:
+  ffmpeg-task:
+    runs-on: ubuntu-latest  # Use an Ubuntu runner
+
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v3
+
+    - name: Install FFmpeg
+      run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+    - name: Run FFmpeg Command to Stream to YouTube
+      run: |
+        ffmpeg -re -stream_loop -1 -i input.mp4 \
+          -vf scale=256:144 \
+          -c:v libx264 -preset veryfast -b:v 200k -maxrate 200k -bufsize 400k \
+          -r 15 \
+          -c:a aac -b:a 48k -ar 44100 \
+          -f flv "rtmp://a.rtmp.youtube.com/live2/YOUR-STREAM-KEY"
