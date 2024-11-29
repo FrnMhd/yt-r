@@ -21,4 +21,4 @@ jobs:
           -c:v libx264 -preset veryfast -b:v 200k -maxrate 200k -bufsize 400k \
           -r 15 \
           -c:a aac -b:a 48k -ar 44100 \
-          -f flv "rtmp://a.rtmp.youtube.com/live2/YOUR-STREAM-KEY"
+          -f flv "rtmp://a.rtmp.youtube.com/live2/${{ secrets.YOUTUBE_STREAM_KEY }}"
