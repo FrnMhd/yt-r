@@ -17,8 +17,7 @@ jobs:
     - name: Run FFmpeg Command to Stream to YouTube
       run: |
         ffmpeg -re -stream_loop -1 -i input.mp4 \
-          -vf scale=256:144 \
-          -c:v libx264 -preset veryfast -b:v 200k -maxrate 200k -bufsize 400k \
+          -c:v libx264 -preset veryfast -b:v 2000k -maxrate 2000k -bufsize 4000k \
           -r 15 \
-          -c:a aac -b:a 48k -ar 44100 \
+          -c:a aac -b:a 128k -ar 44100 \
           -f flv "rtmp://a.rtmp.youtube.com/live2/${{ secrets.S_KEY }}"
